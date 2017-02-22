@@ -14,12 +14,31 @@ var surnames = ["Silverman", "Fey", "Whig", "Schumer", "Kaling"]
 let orderedSurnames = surnames.sorted(by: {(name1: String, name2: String) -> Bool in
     return name2 > name1
 })
+//My Solution 1a
+let reverseOrderedSurnames = surnames.sorted(by: {(name1: String, name2: String) -> Bool in
+    return name2 < name1
+})
+//My Solution 1b
+let shortOrderedSurnames = surnames.sorted(by:{
+    $1 > $0
+})
+
 
 // 2
 let battingAverages = [0.302, 0.556, 0.280, 0.500, 0.281, 0.285]
 let sortedAverages = battingAverages.sorted(by: {(average1: Double, average2: Double) -> Bool in
     return average2 > average1
 })
+//My Solution 2a
+let reversedSortedAverages = battingAverages.sorted(by: {(average1: Double, average2: Double) -> Bool in
+    return average2 < average1
+})
+//My Solution 2b
+let shortSortedAverages = battingAverages.sorted(by: {
+    $1 > $0
+    
+})
+
 
 //: __Problem 3__
 //:
@@ -32,14 +51,25 @@ let divisibleByThree = numbers.filter({(number: Int) -> Bool in
 //: __3a.__
 //:Filter the following array for the numbers which are divisible by 12.
 let numbersAsStrings = ["685", "1728", "648", "87", "979", "59175432"]
+//My Solution
+let divisibleByTwelve = numbersAsStrings.filter({(number:String) -> Bool in
+    Int(number)! % 12 == 0
+})
 
 //: __3b.__
 //: Rewrite the filtering closure expression to be as concise as possible.
-
+//My Solution
+let shortDivisibleByTwelve = numbersAsStrings.filter({
+    Int($0)! % 12 == 0
+})
 //: __Problem 4__
 //:
 //: Filtering out particles greater that 20 microns has been shown to reduce exposure to waterborne pathogens. Filter the following array for all of the particles below 20 microns in size. Assign the result to a new array.
 let particleSizesInMicrons = [150, 16, 82, 30, 10, 57]
+//My Solution
+let greaterParticles = particleSizesInMicrons.filter({
+    $0 < 20
+})
 
 //: __Problem 5__
 //:
@@ -52,6 +82,11 @@ let sizesAsStrings = particleSizesInMicrons.map({ (size: Int) -> String in
 //: Ben just got back from India and he is tallying what he spent on gifts for his customs form.
 //: Use the map() method to transform this array of prices into dollars. Round to the nearest dollar.
 let pricesInRupees = [750, 825, 2000, 725]
+//My Solution
+let pricesInDollars = pricesInRupees.map({ (amount: Int) -> String in
+    var dollars = Double(amount) * 0.014
+    return "$\(dollars)"
+})
 
 //: __Problem 6__
 //:
@@ -73,3 +108,10 @@ func timeStringFromInterval(_ timeInterval: Int) -> NSString {
 }
 
 var oldTimes = ["5:18", "5:45", "5:56", "5:25", "5:27"]
+//My Solution
+var goalTimes = oldTimes.map(){(time) -> String in
+    var totalSeconds = timeIntervalFromString(time)
+    totalSeconds += 13
+    var goalTimes = timeStringFromInterval(totalSeconds)
+    return goalTimes as String
+}
